@@ -9,11 +9,16 @@ using System.Threading.Tasks;
 
 namespace AutoLotDAL.Repos
 {
-    public abstract class BaseRepo<T>: IDisposable where T: class, new()
+    public abstract class BaseRepo<T>: IDisposable where T: class//, new()
     {
         public AutoLotEntities Context { get; } = new AutoLotEntities();
         protected DbSet<T> Table;
+        bool disposed = false;
 
+        public BaseRepo()
+        {
+            //Context.Database.Log = Console.WriteLine;
+        }
         internal int SaveChanges()
         {
             try
@@ -113,7 +118,6 @@ namespace AutoLotDAL.Repos
             return SaveChangesAsync();
         }
 
-        bool disposed = false;
         public void Dispose()
         {
             Dispose(true);
