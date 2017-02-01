@@ -53,6 +53,15 @@
   <ItemGroup>
     <Compile Include="EF\AutoLotEntities.cs" />
     <Compile Include="EF\DataInitializer.cs" />
+    <Compile Include="Migrations\201702012007029_InitialCreate.cs" />
+    <Compile Include="Migrations\201702012007029_InitialCreate.Designer.cs">
+      <DependentUpon>201702012007029_InitialCreate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\201702012015096_TimeStamps.cs" />
+    <Compile Include="Migrations\201702012015096_TimeStamps.Designer.cs">
+      <DependentUpon>201702012015096_TimeStamps.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CreditRisk.cs" />
     <Compile Include="Models\Customer.cs" />
     <Compile Include="Models\Inventory.cs" />
@@ -72,7 +81,14 @@
     </None>
     <None Include="packages.config" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201702012007029_InitialCreate.resx">
+      <DependentUpon>201702012007029_InitialCreate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702012015096_TimeStamps.resx">
+      <DependentUpon>201702012015096_TimeStamps.cs</DependentUpon>
+    </EmbeddedResource>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.

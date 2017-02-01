@@ -13,20 +13,14 @@ namespace EntityFramework
     {
         static void Main(string[] args)
         {
-            Database.SetInitializer(new DataInitializer());
+            //Database.SetInitializer(new DataInitializer());
             Console.WriteLine("**** Fun with ADO.NET EF Code First ****\n");
-            //var car1 = new Inventory() { Make = "Yugo", Color = "Brown", PetName = "Brownie" };
-            //var car2 = new Inventory() { Make = "SmartCar", Color = "Brown", PetName = "Shorty" };
-            //AddNewRecord(car1);
-            //AddNewRecord(car2);
-            //AddNewRecords(new List<Inventory> { car1, car2 });
-            //UpdateRecord(car1.CarId);
+
             //PrintAllInventory();
-            //ShowAllOrdersEagerlyFetched();
 
             PrintAllCustomerAndCreditRisks();
             var customerRepo = new CustomerRepo();
-            var customer = customerRepo.GetOne(4);
+            var customer = customerRepo.GetOne(5);
             customerRepo.Context.Entry(customer).State = EntityState.Detached;
             var risk = MakeCustomerARisk(customer);
             PrintAllCustomerAndCreditRisks();
@@ -126,12 +120,19 @@ namespace EntityFramework
                 FirstName = customer.FirstName,
                 LastName = customer.LastName
             };
+            var creditRiskDupe = new CreditRisk()
+            {
+                FirstName = customer.FirstName,
+                LastName = customer.LastName
+            };
 
             using (var context = new AutoLotEntities())
             {
                 context.Customers.Attach(customer);
                 context.Customers.Remove(customer);
+
                 context.CreditRisks.Add(creditRisk);
+                context.CreditRisks.Add(creditRiskDupe);
                 try
                 {
                     context.SaveChanges();
