@@ -61,6 +61,10 @@
     <Compile Include="Migrations\201702012015096_TimeStamps.Designer.cs">
       <DependentUpon>201702012015096_TimeStamps.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201702031949032_Timestamp_update.cs" />
+    <Compile Include="Migrations\201702031949032_Timestamp_update.Designer.cs">
+      <DependentUpon>201702031949032_Timestamp_update.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\CreditRisk.cs" />
     <Compile Include="Models\Customer.cs" />
@@ -87,6 +91,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201702012015096_TimeStamps.resx">
       <DependentUpon>201702012015096_TimeStamps.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201702031949032_Timestamp_update.resx">
+      <DependentUpon>201702031949032_Timestamp_update.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

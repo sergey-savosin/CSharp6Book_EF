@@ -19,6 +19,8 @@ namespace AutoLotDAL.Repos
 
         int Delete(T entity);
         Task<int> DeleteAsync(T entity);
+        int Delete(int id, byte[] timestamp);
+        Task<int> DeleteAsync(int id, byte[] timestamp);
 
         T GetOne(int? id);
         Task<T> GetOneAsync(int? id);

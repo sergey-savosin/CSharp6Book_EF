@@ -14,14 +14,22 @@ namespace AutoLotDAL.Repos
         {
             Table = Context.Orders;
         }
-        public int Delete(int id)
+        public int Delete(int id, byte[] timestamp)
         {
-            Context.Entry(new Order() { OrderId = id }).State = EntityState.Deleted;
+            Context.Entry(new Order()
+            {
+                OrderId = id,
+                Timestamp = timestamp
+            }).State = EntityState.Deleted;
             return SaveChanges();
         }
-        public Task<int> DeleteAsync(int id)
+        public Task<int> DeleteAsync(int id, byte[] timestamp)
         {
-            Context.Entry(new Order() { OrderId = id }).State = EntityState.Deleted;
+            Context.Entry(new Order()
+            {
+                OrderId = id,
+                Timestamp = timestamp
+            }).State = EntityState.Deleted;
             return SaveChangesAsync();
         }
     }

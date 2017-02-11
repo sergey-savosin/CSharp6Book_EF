@@ -18,12 +18,13 @@ namespace EntityFramework
 
             //PrintAllInventory();
 
+            //PrintAllCustomerAndCreditRisks();
+            //var customerRepo = new CustomerRepo();
+            //var customer = customerRepo.GetOne(5);
+            //customerRepo.Context.Entry(customer).State = EntityState.Detached;
+            //var risk = MakeCustomerARisk(customer);
             PrintAllCustomerAndCreditRisks();
-            var customerRepo = new CustomerRepo();
-            var customer = customerRepo.GetOne(5);
-            customerRepo.Context.Entry(customer).State = EntityState.Detached;
-            var risk = MakeCustomerARisk(customer);
-            PrintAllCustomerAndCreditRisks();
+            UpdateRecordWithConcurrency();
 
             Console.ReadLine();
         }
@@ -52,6 +53,7 @@ namespace EntityFramework
         {
             using (var repo = new InventoryRepo())
             {
+                //repo.Context.Database.Log = Console.WriteLine;
                 repo.Add(car);
             }
         }
@@ -149,6 +151,51 @@ namespace EntityFramework
             return creditRisk;
         }
 
+        private static void UpdateRecordWithConcurrency()
+        {
+            var car = new Inventory()
+            {
+                Make = "Yugo",
+                Color = "Brown",
+                PetName = "Brownie"
+            };
+            AddNewRecord(car);
+
+            var repo1 = new InventoryRepo();
+            //repo1.Context.Database.Log = Console.WriteLine;
+            var car1 = repo1.GetOne(car.CarId);
+            car1.PetName = "Updated";
+
+            var repo2 = new InventoryRepo();
+            //repo2.Context.Database.Log = Console.WriteLine;
+            var car2 = repo2.GetOne(car.CarId);
+            car2.Make = "Nissan";
+
+            repo1.Save(car1);
+            try
+            {
+                repo2.Save(car2);
+            }
+            catch (DbUpdateConcurrencyException ex)
+            {
+                Console.WriteLine(ex);
+            }
+            catch (Exception ex)
+            {
+                Console.WriteLine(ex);
+            }
+            RemoveRecordById(car1.CarId, car1.Timestamp);
+
+        }
+
+        private static void RemoveRecordById(int carId, byte[] timestamp)
+        {
+            using (var repo = new InventoryRepo())
+            {
+                //repo.Context.Database.Log = Console.WriteLine;
+                repo.Delete(carId, timestamp);
+            }
+        }
         private static void PrintAllCustomerAndCreditRisks()
         {
             Console.WriteLine("----- Customers -----");

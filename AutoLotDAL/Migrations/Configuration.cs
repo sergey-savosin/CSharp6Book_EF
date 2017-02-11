@@ -38,7 +38,7 @@ namespace AutoLotDAL.Migrations
                 new Customer {FirstName = "Bad", LastName = "Customer" }
             };
             customers.ForEach(x =>
-                context.Customers.AddOrUpdate(c => new { c.FirstName, c.LastName }, x));
+                context.Customers.AddOrUpdate(c => c.FirstName, x));
 
             var cars = new List<Inventory>
             {
