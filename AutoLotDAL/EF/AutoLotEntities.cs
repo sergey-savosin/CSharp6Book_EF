@@ -1,8 +1,10 @@
 ﻿namespace AutoLotDAL.EF
 {
     using AutoLotDAL.Models;
+    using Interception;
     using System;
     using System.Data.Entity;
+    using System.Data.Entity.Infrastructure.Interception;
     using System.Linq;
 
     public class AutoLotEntities : DbContext
@@ -10,6 +12,7 @@
         public AutoLotEntities()
             : base("name=AutoLotConnection")
         {
+            //DbInterception.Add(new ConsoleWriterInterceptor());
         }
 
         // Добавьте DbSet для каждого типа сущности, который требуется включить в модель. Дополнительные сведения 
